@@ -2,7 +2,14 @@ $(function(){
   UI = {
     isAdmin : false,
     last_q_id : 0,
+    teamName : "",
     questionsAndAnswers : [],
+    
+    getTeamName : function(){
+      while(this.teamName == undefined || this.teamName == null || this.teamName.length <= 0)
+        UI.teamName = prompt("Teamnamen eingeben:");
+      return UI.teamName;
+    },
     
     listenForQuestions : function(){
       var db = $.couch.db("couchquiz");
@@ -60,6 +67,10 @@ $(function(){
       console.log("received an answer, so update the UI", a);
     },
     
+    
+    /*
+    {"title":"ss","answers":["aller","bester","test"]}
+    */
     pushQuestion : function(q){
       if(!UI.isAdmin) return false;
       q.type = "question";
@@ -70,7 +81,7 @@ $(function(){
           UI.displayAdminQuestion(q);
         },
         error : function(){
-          
+          console.log("error creating answer");
         }
       });
     },
@@ -79,7 +90,9 @@ $(function(){
       console.log("build the admin UI that should also contain the currently answered amounts & stuff");
     },
     
-    
+    /* 
+    {"q_id" : UI.last_q_id, "value":"test", "teamName" : UI.getTeamName()}
+    */ 
     pushAnswer : function(a){
       a.type = "answer";
       UI.disableAnswering();
@@ -90,7 +103,7 @@ $(function(){
           
         },
         error : function(){
-          
+
         }
       });
     },
@@ -99,7 +112,7 @@ $(function(){
       console.log("the player has answered, disable the ui now");
     }
   };
-  
+  UI.getTeamName();
   UI.listenForQuestions();
   
   // for testing:
@@ -107,6 +120,6 @@ $(function(){
   // UI.activateAdmin();
   // UI.pushQuestion({"title":"ss","answers":["aller","bester","test"]});
   // after that the Client
-  // UI.pushAnswer({"q_id" : UI.last_q_id, "value":"test"});
+  // UI.pushAnswer({"q_id" : UI.last_q_id, "value":"test", "teamName" : UI.getTeamName()});
   
 });
