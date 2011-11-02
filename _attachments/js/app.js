@@ -1,4 +1,4 @@
-$(function(){
+window.onload = function(){
   UI = {
     isAdmin : false,
     last_q_id : 0,
@@ -41,7 +41,23 @@ $(function(){
     
     displayQuestion : function(q){
       // Add View Logic here
-      alert("test");
+      
+      var clickHandler = function(){
+        $(this).addClass("picked");
+        UI.disableAnswering();
+      };
+      
+      var body = $(document.body).removeClass();
+      body.html("");
+      var question = $("<h1/>").attr("id","question").text(q.title);
+      var answers = $("<ul/>").attr("id", "answers");
+      var a1 = $("<li/>").append($("<div/>").text(q.answers[0]).click(clickHandler));
+      var a2 = $("<li/>").append($("<div/>").text(q.answers[1]).click(clickHandler));
+      var a3 = $("<li/>").append($("<div/>").text(q.answers[2]).click(clickHandler));
+      var a4 = $("<li/>").append($("<div/>").text(q.answers[3]).click(clickHandler));
+      answers.append(a1).append(a2).append(a3).append(a4);
+      body.append(question);
+      body.append(answers);
       console.log("remove me when UI for questions is done", q);
     },
     
@@ -110,11 +126,21 @@ $(function(){
     
     disableAnswering : function(){
       console.log("the player has answered, disable the ui now");
+      $("div").unbind();
+      setTimeout(function(){
+        UI.showBlank();
+      }, 2000);
+    },
+    
+    showBlank : function(){
+      $(document.body).html("<div>Warte auf Frage...<div id='loader'></div></div>").addClass("fullscreen blank");
+      var cl = new CanvasLoader('loader');
+      cl.setColor('#999999'); // default is '#000000'
+      cl.show(); // Hidden by default
     }
   };
   UI.getTeamName();
   UI.listenForQuestions();
-  
   // for testing:
   // Server
   // UI.activateAdmin();
@@ -122,4 +148,4 @@ $(function(){
   // after that the Client
   // UI.pushAnswer({"q_id" : UI.last_q_id, "value":"test", "teamName" : UI.getTeamName()});
   
-});
+};
