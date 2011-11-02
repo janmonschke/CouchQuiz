@@ -9,6 +9,8 @@ html {
 body {
   height: 100%;
   margin: 0;
+}
+body, .flexbox {
   display: -webkit-box;
   display: -moz-box;
   display: -o-box;
@@ -138,6 +140,47 @@ Graph Styles (graph.html)
 
 /*
 
+Admin Controls
+==============
+
+*/
+#controls {
+  line-height: 21px;
+  padding: 13px;
+  font-size: 13px;
+  color: white;
+  text-shadow: 0 1px rgba(0,0,0,.55);
+  background: rgba(0,0,0,.39);
+  background: -webkit-gradient(linear, left top, left bottom, from(#a8a8a8), to(#8f8f8f));
+  background: -webkit-linear-gradient(#a8a8a8, #8f8f8f);
+  background: -moz-linear-gradient(#a8a8a8, #8f8f8f);
+  background: -o-linear-gradient(#a8a8a8, #8f8f8f);
+  background: -ms-linear-gradient(#a8a8a8, #8f8f8f);
+  background: linear-gradient(#a8a8a8, #8f8f8f);
+  border-top: 1px solid rgba(255,255,255,.55);
+  border-bottom: 1px solid rgba(0,0,0,.55);
+  border-left: 1px solid rgba(0,0,0,.13);
+  -webkit-box-shadow: -1px 0 rgba(255,255,255,.21);
+  -moz-box-shadow: -1px 0 rgba(255,255,255,.21);
+  box-shadow: -1px 0 rgba(255,255,255,.21);
+  position: relative;
+  overflow: hidden;
+}
+.creation {
+  float: left;
+}
+.presentation {
+  float: right;
+}
+#workarea {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+}
+
+/*
+
 Mobile Styles
 =============
 
@@ -147,7 +190,7 @@ Mobile Styles
     font-size: 24px;
     line-height: 30px;
   } 
-  body {
+  .flexbox {
     -webkit-box-pack: start;
     -moz-box-pack: start;
     -o-box-pack: start;
