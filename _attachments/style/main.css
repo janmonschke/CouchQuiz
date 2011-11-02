@@ -115,7 +115,7 @@ Graph Styles (graph.html)
 }
 .bar {
   height: 80px;
-  min-width: 4%;
+  width: 0;
   padding-left: 2%;
   margin-bottom: 3%;
   line-height: 80px;
