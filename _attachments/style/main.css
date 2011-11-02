@@ -116,7 +116,6 @@ Graph Styles (graph.html)
 .bar {
   height: 80px;
   min-width: 4%;
-  margin-left: 44px;
   padding-left: 2%;
   margin-bottom: 3%;
   line-height: 80px;
@@ -124,8 +123,7 @@ Graph Styles (graph.html)
   position: relative;
   display: block;
 }
-  .bar:after,
-  .bar:before {
+  .bar:after {
     text-shadow: 0 1px 2px white;
     font-weight: bold;
     position: absolute;
@@ -136,13 +134,6 @@ Graph Styles (graph.html)
     content: attr(data-votes);
     color: #28796c;
     text-align: left;
-  }
-  .bar:before {
-    left: -44px;
-    width: 26px;
-    content: attr(data-character);
-    color: black;
-    text-align: right;
   }
 .answer {
   color: #28796c;
