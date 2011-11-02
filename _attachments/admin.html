@@ -22,9 +22,7 @@
         <button id="store">Speichern</button>
       </div>
       <div class="presentation">
-        <button id="pause">Pausieren</button>
-        <button id="send">Frage absenden</button>
-        <button id="collect">Antworten einholen</button>
+        <button id="send">Frage senden</button>
       </div>
     </div>
     <div id="workarea" class="flexbox">
@@ -32,12 +30,35 @@
       <ul id="answers">
         <li><div>A: <span contenteditable>2 000</span></div></li>
         <li><div>B: <span contenteditable>20 000</span></div></li>
-        <li><div class="picked">C: <span contenteditable>200 000</span></div></li>
+        <li><div>C: <span contenteditable>200 000</span></div></li>
         <li><div>D: <span contenteditable>2 000 000</span></div></li>
       </ul>
     </div>
     <script type="text/javascript">
+      var store = {
+        init: function(){
+          this.renderOptions();
+        },
+        renderOptions: function(){
+          var fragen = $('<select>');
+          questions = localStorage["questions"] || questions;
+          
+          for(question in questions){
+            fragen.append($('<option>').value(question).text(questions[question].title));
+          }
+          $('fragen').replace(fragen);
+        }
+      };
       var $answers = $('#answers span');
+      var $answerHolders = $('#answers div');
+      
+      $answerHolders.click(function(){
+        $answerHolders.removeClass('picked');
+        $(this).addClass('picked');
+      });
+      
+      $answers.click(function(e){ e.stopPropagation(); });
+      
       $('#send').click(function(){
         
         var answers = [];
