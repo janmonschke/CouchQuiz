@@ -3,116 +3,21 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" href="favicon.ico" />
     <title>Das Ultimatum Quiz</title>
     <script src="/_utils/script/jquery.js"></script>
     <script src="/_utils/script/jquery.couch.js"></script>
     <script src="js/app.js"></script>
-    <style type="text/css">
-      html {
-        min-height: 100%;
-  	    font: 15px/21px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  	    color: #373737;
-  	    line-height: 1.625;
-  	    font-weight: 300;
-  	    background: #c0dce4;
-      }
-      body { 
-        margin: 0;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -o-box;
-        display: box;
-        -webkit-box-orient: vertical;
-        -webkit-box-pack: end;
-      }
-      h1 { 
-        margin: 0;
-        padding: 34px;
-		    color: black;
-		    font-size: 36px;
-		    line-height: 48px;
-		    font-weight: bold;
-		    background: white;
-  		  box-shadow: 0 1px 2px rgba(0,0,0,.13);
-  		}
-  		#answers {
-  		  margin-top: 1%;
-  		  padding: 0;
-  		  list-style: none;
-  		  overflow: hidden;
-  		}
-  		#answers li {
-  		  width: 48.5%;
-  		  margin: 0 1% 1%;
-  		  float: left;
-  		  display: table;
-  		}
-  		#answers li:nth-child(odd) { 
-  		  margin-right: 0; 
-  		}
-  		#answers a {
-  		  height: 100px;
-  		  display: table-cell;
-  		  font-size: 28px;
-  		  color: #28796c;
-  		  font-weight: normal;
-  		  text-shadow: 0 1px 2px white;
-  		  vertical-align: middle;
-  		  text-align: center;
-  		  text-decoration: none;
-  		  border: 1px solid rgba(40,121,108,.55);
-  		  background: white;
-  		  background: rgba(255,255,255,.67);
-  		  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.89)), to(rgba(255,255,255,.55)));
-  		  background: -webkit-linear-gradient(rgba(255,255,255,.89), rgba(255,255,255,.55));
-  		  background: -moz-linear-gradient(rgba(255,255,255,.89), rgba(255,255,255,.55));
-  		  background: -o-linear-gradient(rgba(255,255,255,.89), rgba(255,255,255,.55));
-  		  background: -ms-linear-gradient(rgba(255,255,255,.89), rgba(255,255,255,.55));
-  		  background: linear-gradient(rgba(255,255,255,.89), rgba(255,255,255,.55));
-  		  box-shadow: 0 1px white inset, 0 1px 2px rgba(0,0,0,.13);
-  		}
-  		#answers a.picked {
-  		  color: white;
-  		  text-shadow: 0 1px 2px rgba(0,0,0,.55);
-  		  background: #28796c;
-  		  background: -webkit-gradient(linear, left top, left bottom, from(rgba(40, 121, 108, .67)), to(rgb(40, 121, 108)));
-  		  background: -webkit-linear-gradient(rgba(40, 121, 108, .67), rgb(40, 121, 108));
-  		  background: -moz-linear-gradient(rgba(40, 121, 108, .67), rgb(40, 121, 108));
-  		  background: -o-linear-gradient(rgba(40, 121, 108, .67), rgb(40, 121, 108));
-  		  background: -ms-linear-gradient(rgba(40, 121, 108, .67), rgb(40, 121, 108));
-  		  background: linear-gradient(rgba(40, 121, 108, .67), rgb(40, 121, 108));
-  		  border-color: rgba(0,0,0,.21);
-  		  box-shadow: 0 1px rgba(255,255,255,.55) inset, 0 1px 2px rgba(0,0,0,.13);
-  		}
-  		@media only screen and (max-width: 640px) {
-  		  h1 {
-  		    font-size: 21px;
-  		    line-height: 34px;
-  		    padding: 13px;
-  		  }
-  		  #answers { margin: 0; }
-  		  #answers li {
-  		    margin: 0;
-  		    width: 100%;
-  		  }
-  		  #answers a {
-  		    font-size: 21px;
-  		    height: 60px;
-  		    border-bottom: none;
-  		    bottom-left: none;
-  		    bottom-right: none;
-  		  }
-  		}
-    </style>
+    <link rel="stylesheet" type="text/css" href="style/main.css">
   </head>
   <body>
     <h1 id="question">Wie viele Ost-Deutsche sind 1958 nach Westdeutschland geflüchtet?</h1>
     <ul id="answers">
-      <li><a href="#" class="picked">2 000</a></li>
-      <li><a href="#">20 000</a></li>
-      <li><a href="#">200 000</a></li>
-      <li><a href="#">2 000 000</a></li>
+      <li><div>A: 2 000</div></li>
+      <li><div class="picked">B: 20 000</div></li>
+      <li><div>C: 200 000</div></li>
+      <li><div>D: 2 000 000</div></li>
     </ul>
   </body>
 </html>
