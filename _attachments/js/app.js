@@ -44,6 +44,7 @@ window.onload = function(){
       
       var clickHandler = function(){
         $(this).addClass("picked");
+        UI.pushAnswer({"q_id" : UI.last_q_id, "value": $(this).text(), "teamName" : UI.getTeamName()});
         UI.disableAnswering();
       };
       
@@ -140,7 +141,9 @@ window.onload = function(){
     }
   };
   UI.getTeamName();
+  UI.showBlank();
   UI.listenForQuestions();
+  
   // for testing:
   // Server
   // UI.activateAdmin();
