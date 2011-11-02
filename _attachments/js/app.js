@@ -1,3 +1,16 @@
+window.questions = {
+  republiksflucht : {
+    title : "Was war 1958 die Strafe auf Republiksflucht",
+    answers : ["Todesstrafe", "Zuchthausstrafe", "Gefängnisstrafe", "Verwarnung"],
+    correct_answer : "Zuchthausstrafe"
+  },
+  gefluechtet : {
+    title : "Wie viele Menschen sind 1958 aus dem Osten geflüchtet?",
+    answers : ["2.000", "20.000", "200.000", "2.000.000"],
+    correct_answer : "200.000"
+  }
+};
+
 window.onload = function(){
   UI = {
     isAdmin : false,
@@ -81,7 +94,11 @@ window.onload = function(){
     
     answerReceived : function(a){
       UI.questionsAndAnswers[a.results[0].doc.q_id].answers[a.results[0].doc.value].value++;
-      console.log("received an answer, so update the UI", a);
+      var elem = $("[data-text="+a.results[0].doc.value+"]");
+      var v = parseInt(elem.attr("data-votes"),10);
+      elem.attr("data-votes", ++v);
+      elem.width(elem.width() + 20);
+      console.log("received an answer, so update the UI", elem);
     },
     
     
@@ -104,6 +121,15 @@ window.onload = function(){
     },
     
     displayAdminQuestion : function(q){
+      $(document.body).html("").addClass("graph");
+      $(document.body).append("<h1 id='question'>"+ q.title+"</h1>");
+      var ul = $("<ul />").attr("id","graph");
+      var g1 = $("<li/>").append($("<div/>").addClass("bar").attr("data-votes","0").attr("data-text", q.answers[0]));
+      var g2 = $("<li/>").append($("<div/>").addClass("bar").attr("data-votes","0").attr("data-text", q.answers[1]));
+      var g3 = $("<li/>").append($("<div/>").addClass("bar").attr("data-votes","0").attr("data-text", q.answers[2]));
+      var g4 = $("<li/>").append($("<div/>").addClass("bar").attr("data-votes","0").attr("data-text", q.answers[3]));
+      ul.append(g1).append(g2).append(g3).append(g4);
+      $(document.body).append(ul);
       console.log("build the admin UI that should also contain the currently answered amounts & stuff");
     },
     
