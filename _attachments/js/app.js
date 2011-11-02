@@ -79,7 +79,7 @@ window.onload = function(){
       this.isAdmin = true;
       UI.listenForAnswers();
       // build admin view
-      console.log("remove me when UI admin is done");
+      //console.log("remove me when UI admin is done");
     },
     
     listenForAnswers : function(){
@@ -94,11 +94,11 @@ window.onload = function(){
     
     answerReceived : function(a){
       UI.questionsAndAnswers[a.results[0].doc.q_id].answers[a.results[0].doc.value].value++;
+      console.log("Answer by", a.results[0].doc.teamName, "correct?", a.results[0].doc == UI.questionsAndAnswers[a.results[0].doc.q_id].correctAnswer);
       var elem = $("[data-text="+a.results[0].doc.value+"]");
       var v = parseInt(elem.attr("data-votes"),10);
       elem.attr("data-votes", ++v);
       elem.width(elem.width() + 20);
-      console.log("received an answer, so update the UI", elem);
     },
     
     
@@ -109,6 +109,7 @@ window.onload = function(){
       if(!UI.isAdmin) return false;
       q.type = "question";
       console.log("Pushing a new question to the server", q);
+      console.log("================================================================");
       var db = $.couch.db("couchquiz");
       db.saveDoc(q, {
         success : function(doc){
@@ -130,7 +131,7 @@ window.onload = function(){
       var g4 = $("<li/>").append($("<div/>").addClass("bar").attr("data-votes","0").attr("data-text", q.answers[3]));
       ul.append(g1).append(g2).append(g3).append(g4);
       $(document.body).append(ul);
-      console.log("build the admin UI that should also contain the currently answered amounts & stuff");
+      //console.log("build the admin UI that should also contain the currently answered amounts & stuff");
     },
     
     /* 
@@ -152,7 +153,7 @@ window.onload = function(){
     },
     
     disableAnswering : function(){
-      console.log("the player has answered, disable the ui now");
+      //console.log("the player has answered, disable the ui now");
       $("div").unbind();
       setTimeout(function(){
         UI.showBlank();
