@@ -1,7 +1,7 @@
 html {
   height: 100%;
   font: 36px/48px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #373737;
+  color: black;
   line-height: 1.625;
   font-weight: normal;
   background: #c0dce4;
@@ -25,13 +25,13 @@ body, .flexbox {
   box-pack: end;
 }
 
+
 /*
 
 Basic Styles (index.html)
 ============
 
 */
-
 #question {
   margin: 0;
   padding: 3% 3% 4%;
@@ -68,9 +68,8 @@ ul {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  color: white;
-  text-shadow: 0 1px 2px rgba(0,0,0,.13);
-  background: #28796c;
+  text-shadow: 0 1px 2px white;
+  background: white;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.34);
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.34);
   box-shadow: 0 1px 2px rgba(0,0,0,.34);
@@ -83,10 +82,11 @@ ul {
 }
 #answers div.picked, .bar.correct {
   font-weight: bold;
-  color: #28796c;
-  text-shadow: 0 1px 2px white;
-  background: white;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,.13);
+  background: #28796c;
 }
+
 
 /*
 
@@ -116,6 +116,7 @@ Graph Styles (graph.html)
 .bar {
   height: 80px;
   min-width: 4%;
+  margin-left: 44px;
   padding-left: 2%;
   margin-bottom: 3%;
   line-height: 80px;
@@ -123,20 +124,31 @@ Graph Styles (graph.html)
   position: relative;
   display: block;
 }
+  .bar:after,
   .bar:before {
+    text-shadow: 0 1px 2px white;
+    font-weight: bold;
+    position: absolute;
+  }
+  .bar:after {
     right: -60px;
     width: 42px;
     content: attr(data-votes);
     color: #28796c;
-    text-shadow: 0 1px 2px white;
-    font-weight: bold;
     text-align: left;
-    position: absolute;
+  }
+  .bar:before {
+    left: -44px;
+    width: 26px;
+    content: attr(data-character);
+    color: black;
+    text-align: right;
   }
 .answer {
   color: #28796c;
   display: block;
 }
+
 
 /*
 
@@ -179,6 +191,53 @@ Admin Controls
   box-flex: 1;
 }
 
+
+/*
+
+Blank Style (blank.html)
+===========
+
+*/
+.fullscreen {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+.fullscreen > div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: #999;
+  background: white;
+  font-size: 24px;
+  line-height: 30px;
+  text-shadow: 0 1px rgba(255,255,255,.55);
+}
+#loader {
+  margin-top: 13px;
+}
+
+
+/*
+
+Result Style (correct.html / incorrect.html)
+===========
+
+*/
+.correct > div,
+.incorrect > div {
+  font-size: 60px;
+  line-height: 72px;
+}
+.correct > div {
+  color: white;
+  background: #28796c;
+}
+.incorrect > div {
+  color: black;
+}
+
+
 /*
 
 Mobile Styles
@@ -189,8 +248,8 @@ Mobile Styles
   html {
     font-size: 24px;
     line-height: 30px;
-  } 
-  .flexbox {
+  }
+  body, .flexbox {
     -webkit-box-pack: start;
     -moz-box-pack: start;
     -o-box-pack: start;
