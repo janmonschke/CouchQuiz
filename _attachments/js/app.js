@@ -1,13 +1,13 @@
 window.questions = {
   republiksflucht : {
-    title : "Was war 1958 die Strafe auf Republiksflucht",
+    title : "Was war 1958 die Strafe auf Republiksflucht?",
     answers : ["Todesstrafe", "Zuchthausstrafe", "Gefängnisstrafe", "Verwarnung"],
-    correct_answer : "Zuchthausstrafe"
+    correctAnswer : "Zuchthausstrafe"
   },
   gefluechtet : {
     title : "Wie viele Menschen sind 1958 aus dem Osten geflüchtet?",
     answers : ["2.000", "20.000", "200.000", "2.000.000"],
-    correct_answer : "200.000"
+    correctAnswer : "200.000"
   }
 };
 
@@ -35,12 +35,12 @@ window.onload = function(){
     },
     
     addQuestion : function(q){      
-      console.log("add q",q);
       if(UI.questionsAndAnswers[q._id] == undefined){
         UI.last_q_id = q._id
         UI.questionsAndAnswers[q._id] = {};
         UI.questionsAndAnswers[q._id].question = q.title;
         UI.questionsAndAnswers[q._id].answers = [];
+        UI.questionsAndAnswers[q._id].correctAnswer = q.correctAnswer;
         for(var i = 0; i < q.answers.length; i++)
           UI.questionsAndAnswers[q._id].answers[q.answers[i]] = {
             title : q.answers[i],
@@ -94,7 +94,7 @@ window.onload = function(){
     
     answerReceived : function(a){
       UI.questionsAndAnswers[a.results[0].doc.q_id].answers[a.results[0].doc.value].value++;
-      console.log("Answer by", a.results[0].doc.teamName, "correct?", a.results[0].doc == UI.questionsAndAnswers[a.results[0].doc.q_id].correctAnswer);
+      console.log("Answer by", a.results[0].doc.teamName, "correct?", a.results[0].doc.value == UI.questionsAndAnswers[a.results[0].doc.q_id].correctAnswer, a.results[0].doc.value, UI.questionsAndAnswers[a.results[0].doc.q_id].correctAnswer);
       var elem = $("[data-text="+a.results[0].doc.value+"]");
       var v = parseInt(elem.attr("data-votes"),10);
       elem.attr("data-votes", ++v);
