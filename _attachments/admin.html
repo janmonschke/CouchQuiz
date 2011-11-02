@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <title>Das Ultimatum Quiz - Admin</title>
+    <script src="/_utils/script/jquery.js"></script>
+    <script src="/_utils/script/jquery.couch.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+  </head>
+  <body>
+    <div id="controls">
+      <div class="creation">
+        <label for="fragen">Lokal gespeicherte Fragen</label>
+        <select id="fragen">
+            <option value="1" selected>Flüchtlinge</option>
+            <option value="2">123</option>
+        </select>
+        <button id="store">Speichern</button>
+      </div>
+      <div class="presentation">
+        <button id="pause">Pausieren</button>
+        <button id="send">Frage absenden</button>
+        <button id="collect">Antworten einholen</button>
+      </div>
+    </div>
+    <div id="workarea" class="flexbox">
+      <h1 id="question" contenteditable>Wie viele Ost-Deutsche sind 1958 nach Westdeutschland geflüchtet?</h1>
+      <ul id="answers">
+        <li><div>A: <span contenteditable>2 000</span></div></li>
+        <li><div>B: <span contenteditable>20 000</span></div></li>
+        <li><div class="picked">C: <span contenteditable>200 000</span></div></li>
+        <li><div>D: <span contenteditable>2 000 000</span></div></li>
+      </ul>
+    </div>
+  </body>
+</html>
