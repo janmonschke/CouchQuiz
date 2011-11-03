@@ -8,6 +8,7 @@
     <title>Das Ultimatum Quiz - Admin</title>
     <script src="js/jquery.js"></script>
     <script src="js/jquery.couch.js"></script>
+    <script type="text/javascript"> window.isAdmin = true; </script>
     <!--<script src="js/app.js"></script>-->
     <link rel="stylesheet" type="text/css" href="style/main.css">
   </head>
@@ -36,6 +37,54 @@
       </ul>
     </div>
     <script type="text/javascript">
+      window.questions = {
+        republiksflucht : {
+          title : "Was war 1958 die Strafe auf Republiksflucht?",
+          answers : ["Todesstrafe", "Zuchthausstrafe", "Gefängnisstrafe", "Verwarnung"],
+          correctAnswer : "Zuchthausstrafe"
+        },
+        gefluechtet : {
+          title : "Wie viele Menschen sind 1958 aus dem Osten geflüchtet?",
+          answers : ["2.000", "20.000", "200.000", "2.000.000"],
+          correctAnswer : "200.000"
+        },
+        sperrzone : {
+          title: "Wie wurde die Aktion genannt?",
+          answers : ["Ungeziefer", "Weißer Rieße", "Kornblume", "Rose"],
+          correctAnswer :  "Ungeziefer"
+        },
+        zeitung : {
+          title: "Welche ist keine Ost-Zeitung?",
+          answers : ["Junge Welt", "Neues Deutschland", "Berliner Morgenpost", "Berliner Zeitung"],
+          correctAnswer :  "Berliner Morgenpost"
+        },
+        mark : {
+          title: "Wie viele Ost-Mark musste Jenny ca. einwechseln, um den 3 West-Mark teuren Irish-Coffee zu kaufen?",
+          answers : ["21", "150", "6", "57"],
+          correctAnswer :  "21"
+        },
+        grenzverlauf : {
+          title: "Welches ist der richtige Grenzverlauf?",
+          answers : ["A", "B", "C", "D"],
+          correctAnswer :  "C"
+        },
+        humboldt : {
+          title: "Wo befindet sich die Humboldt-Universität?",
+          answers : ["A", "B", "C", "D"],
+          correctAnswer :  "B"
+        },
+        wonhung : {
+          title: "Wo ungefähr wohnten Jenny und Robert?",
+          answers : ["A", "B", "C", "D"],
+          correctAnswer :  "D"
+        },
+        pfarrer : {
+          title: "Wo wohnte ihr Pfarrer?",
+          answers : ["A", "B", "C", "D"],
+          correctAnswer :  "C"
+        }
+      };
+      
       var store = {
         init: function(){
           this.$answers = $('#answers span');
@@ -49,18 +98,19 @@
           
           this.$answers.click(function(e){ e.stopPropagation(); });
           this.$answerHolders.click( $.proxy(this, 'pickCorrectAnswer') );
-          this.$questions.change( $.proxy(this, 'loadQuestion') );
+          $('#questions').live('change', $.proxy(this, 'loadQuestion') );
           $('#store').click( $.proxy(this, 'storeQuestion') );
           $('#remove').click( $.proxy(this, 'removeQuestion') );
+          $('#send').click( $.proxy(this, 'sendQuestion') );
         },
         renderQuestions: function(){
-          var fragen = $('<select>');
+          var questionsHolder = $('<select>').attr('id', 'questions');
           
           for(question in questions){
-            fragen.append($('<option>').attr('value', question).text(questions[question].title));
+            questionsHolder.append($('<option>').attr('value', question).text(question));
           }
           
-          $('#fragen').replaceWith(fragen);
+          this.$questions.replaceWith(questionsHolder);
         },
         pickCorrectAnswer: function(event){
           this.$answerHolders.removeClass('picked');
@@ -69,17 +119,18 @@
         storeQuestion: function(){
           var question = this.getQuestion();
           if(!question) return false;
-          
-          questions[question[0]] = question[1];
+          var name = prompt('Question Name (camel case)');
+          questions[name] = question;
+          this.renderQuestions();
           localStorage['questions'] = JSON.stringify(questions);
         },
         removeQuestion: function(){
-          delete questions[this.$questions.value];
-          localStorage['questions'] = JSON.stringify(questions);
+          delete questions[$('#questions').val()];
           this.renderQuestions();
+          localStorage['questions'] = JSON.stringify(questions);
         },
-        loadQuestion: function(){
-          setQuestion(questions[this.$questions.value]);
+        loadQuestion: function(event){
+          this.setQuestion(questions[event.target.value]);
         },
         getQuestion: function(){
           var answers = [];
@@ -88,7 +139,7 @@
 
           for(var i=0, l=this.$answers.length; i<l; i++){
             var answer = this.$answers.eq(i).text();
-            if(this.$answers.eq(i).hasClass('picked')){
+            if(this.$answerHolders.eq(i).hasClass('picked')){
               somethingIsPicked = true;
               correctAnswer = answer;
             }
@@ -98,27 +149,23 @@
           if(!somethingIsPicked) {
             alert('Please click on the right answer!');
             return false;
-          }  
+          }
           
-          var name = prompt('Question Name (camel case)');
-          
-          return [
-            name, {
-              title: $('#question').text(),
-              answers: answers,
-              correctAnswer: correctAnswer
-            }
-          ];
+          return {
+            title: $('#question').text(),
+            answers: answers,
+            correctAnswer: correctAnswer
+          };
         },
         setQuestion: function(question){
           $('#question').text(question.title);
           
-          this.$answers.removeClass();
+          this.$answerHolders.removeClass();
           
           for(var i=0; i<4; i++){
             var answer = question.answers[i];
             this.$answers.eq(i).text(answer);
-            if(answer === question.correctAnswer) this.$answers.eq(i).addClass('picked');
+            if(answer === question.correctAnswer) this.$answerHolders.eq(i).addClass('picked');
           }
         },
         sendQuestion: function(){
