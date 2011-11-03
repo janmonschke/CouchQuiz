@@ -8,6 +8,41 @@ window.questions = {
     title : "Wie viele Menschen sind 1958 aus dem Osten geflüchtet?",
     answers : ["2.000", "20.000", "200.000", "2.000.000"],
     correctAnswer : "200.000"
+  },
+  sperrzone : {
+    title: "Wie wurde die Aktion genannt?",
+    answers : ["Ungeziefer", "Weißer Rieße", "Kornblume", "Rose"],
+    correctAnswer :  "Ungeziefer"
+  },
+  zeitung : {
+    title: "Welche ist keine Ost-Zeitung?",
+    answers : ["Junge Welt", "Neues Deutschland", "Berliner Morgenpost", "Berliner Zeitung"],
+    correctAnswer :  "Berliner Morgenpost"
+  },
+  mark : {
+    title: "Wie viele Ost-Mark musste Jenny ca. einwechseln, um den 3 West-Mark teuren Irish-Coffee zu kaufen?",
+    answers : ["21", "150", "6", "57"],
+    correctAnswer :  "21"
+  },
+  grenzverlauf : {
+    title: "Welches ist der richtige Grenzverlauf?",
+    answers : ["A", "B", "C", "D"],
+    correctAnswer :  "C"
+  },
+  humboldt : {
+    title: "Wo befindet sich die Humboldt-Universität?",
+    answers : ["A", "B", "C", "D"],
+    correctAnswer :  "B"
+  },
+  wonhung : {
+    title: "Wo ungefähr wohnten Jenny und Robert?",
+    answers : ["A", "B", "C", "D"],
+    correctAnswer :  "D"
+  },
+  pfarrer : {
+    title: "Wo wohnte ihr Pfarrer?",
+    answers : ["A", "B", "C", "D"],
+    correctAnswer :  "C"
   }
 };
 
