@@ -14,11 +14,12 @@
   <body>
     <div id="controls">
       <div class="creation">
-        <label for="fragen">Lokal gespeicherte Fragen</label>
-        <select id="fragen">
+        <label for="questions">Lokal gespeicherte Fragen</label>
+        <select id="questions">
             <option value="1" selected>Flüchtlinge</option>
             <option value="2">123</option>
         </select>
+        <button id="remove">Löschen</button>
         <button id="store">Speichern</button>
       </div>
       <div class="presentation">
@@ -28,51 +29,105 @@
     <div id="workarea" class="flexbox">
       <h1 id="question" contenteditable>Wie viele Ost-Deutsche sind 1958 nach Westdeutschland geflüchtet?</h1>
       <ul id="answers">
-        <li><div>A: <span contenteditable>2 000</span></div></li>
-        <li><div>B: <span contenteditable>20 000</span></div></li>
-        <li><div>C: <span contenteditable>200 000</span></div></li>
-        <li><div>D: <span contenteditable>2 000 000</span></div></li>
+        <li><div><span contenteditable>2 000</span></div></li>
+        <li><div><span contenteditable>20 000</span></div></li>
+        <li><div><span contenteditable>200 000</span></div></li>
+        <li><div><span contenteditable>2 000 000</span></div></li>
       </ul>
     </div>
     <script type="text/javascript">
       var store = {
         init: function(){
-          this.renderOptions();
+          this.$answers = $('#answers span');
+          this.$answerHolders = $('#answers div');
+          this.$questions = $('#questions');
+          if(localStorage["questions"]){
+            questions = JSON.parse(localStorage["questions"]);
+          }
+          
+          this.renderQuestions();
+          
+          this.$answers.click(function(e){ e.stopPropagation(); });
+          this.$answerHolders.click( $.proxy(this, 'pickCorrectAnswer') );
+          this.$questions.change( $.proxy(this, 'loadQuestion') );
+          $('#store').click( $.proxy(this, 'storeQuestion') );
+          $('#remove').click( $.proxy(this, 'removeQuestion') );
         },
-        renderOptions: function(){
+        renderQuestions: function(){
           var fragen = $('<select>');
-          questions = localStorage["questions"] || questions;
           
           for(question in questions){
-            fragen.append($('<option>').value(question).text(questions[question].title));
+            fragen.append($('<option>').attr('value', question).text(questions[question].title));
           }
-          $('fragen').replace(fragen);
+          
+          $('#fragen').replaceWith(fragen);
+        },
+        pickCorrectAnswer: function(event){
+          this.$answerHolders.removeClass('picked');
+          $(event.target).addClass('picked');
+        },
+        storeQuestion: function(){
+          var question = this.getQuestion();
+          if(!question) return false;
+          
+          questions[question[0]] = question[1];
+          localStorage['questions'] = JSON.stringify(questions);
+        },
+        removeQuestion: function(){
+          delete questions[this.$questions.value];
+          localStorage['questions'] = JSON.stringify(questions);
+          this.renderQuestions();
+        },
+        loadQuestion: function(){
+          setQuestion(questions[this.$questions.value]);
+        },
+        getQuestion: function(){
+          var answers = [];
+          var somethingIsPicked = false;
+          var correctAnswer = "";
+
+          for(var i=0, l=this.$answers.length; i<l; i++){
+            var answer = this.$answers.eq(i).text();
+            if(this.$answers.eq(i).hasClass('picked')){
+              somethingIsPicked = true;
+              correctAnswer = answer;
+            }
+            answers.push(answer);
+          }
+          
+          if(!somethingIsPicked) {
+            alert('Please click on the right answer!');
+            return false;
+          }  
+          
+          var name = prompt('Question Name (camel case)');
+          
+          return [
+            name, {
+              title: $('#question').text(),
+              answers: answers,
+              correctAnswer: correctAnswer
+            }
+          ];
+        },
+        setQuestion: function(question){
+          $('#question').text(question.title);
+          
+          this.$answers.removeClass();
+          
+          for(var i=0; i<4; i++){
+            var answer = question.answers[i];
+            this.$answers.eq(i).text(answer);
+            if(answer === question.correctAnswer) this.$answers.eq(i).addClass('picked');
+          }
+        },
+        sendQuestion: function(){
+          var question = this.getQuestion();
+          if(!question) return false;
+          console.log('sending:', question);
         }
       };
-      var $answers = $('#answers span');
-      var $answerHolders = $('#answers div');
-      
-      $answerHolders.click(function(){
-        $answerHolders.removeClass('picked');
-        $(this).addClass('picked');
-      });
-      
-      $answers.click(function(e){ e.stopPropagation(); });
-      
-      $('#send').click(function(){
-        
-        var answers = [];
-
-        for(var i=0, l=$answers.length; i<l; i++){
-          answers.push($answers.eq(i).text());
-        }
-        
-        var question = {
-          title: $('#question').text(),
-          answers: answers
-        };
-        console.log(question);
-      });
+      store.init();
     </script>
   </body>
 </html>
